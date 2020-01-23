@@ -8,11 +8,11 @@ const  PhotoStackNavigator = createStackNavigator({
     Photo: {
         screen: PhotoScreen,
         navigationOptions: {
-            title: 'Full screen'
+            title: 'Categorys'
         }
     }
 }, {
-    defaultNavigationOptions:{ headerStyle: {backgroundColor: '#FEC868'}}
+    defaultNavigationOptions:{ headerStyle: {backgroundColor: '#F85DC6', opacity: 0.8}}
 })
 
 
