@@ -1,12 +1,19 @@
 import React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity, Text, Dimensions, Alert } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Text, Dimensions } from 'react-native';
 
 const { height, width } = Dimensions.get('window')
 
-const PhotoList = ({ item }) => {
+const PhotoList = ({ item, navigation }) => {
+
+
+const showFullScreen = () => {
+    navigation.navigate('Photo')
+}
+
+
     return (
         <View style={styles.list}>
-            <TouchableOpacity style={styles.photo}>
+            <TouchableOpacity style={styles.photo} onPress={showFullScreen}>
                 <Image style={{
                     width: 180,
                     height: 200,
