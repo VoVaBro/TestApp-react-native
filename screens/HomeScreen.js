@@ -1,44 +1,59 @@
-import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
+import axios from 'axios'
 
+import PhotoList from '../components/PhotoList'
 
-const API_ID = 'cf49c08b444ff4cb9e4d126b7e9f7513ba1ee58de7906e4360afc1a33d1bf4c0'
+const API_ID = '896d4f52c589547b2134bd75ed48742db637fa51810b49b607e37e46ab2c0043'
 
 export default function HomeScreen() {
 
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(false)
   const [photos, setPhotos] = useState([]);
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(30);
 
   useEffect(() => {
     getPhotos()
   }, [count])
 
-     const getPhotos = async () => {
-    const response = await fetch (`https://api.unsplash.com/photos/random?count=${count}&client_id=${API_ID}`)
-    const json = await response.json();
-    console.log(json)
+  const getPhotos = async () => {
+    const response = await axios.get(`https://api.unsplash.com/photos/random?count=${count}&client_id=${API_ID}`)
+
+    setPhotos(response.data)
+    setLoading(true)
   }
 
-if (isLoading){
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <FlatList
+          numColumns={2}
+          data={photos}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View>
+              <PhotoList
+                item={item}
+              />
+            </View>
+          )}
+        />
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
-      <FlatList/>
+      <ActivityIndicator syze='large' color='black'/>
     </View>
-  );
-}
-return (
-  <View style={styles.container}>
-    <ActivityIndicator syze='large' color='gray'/>
-  </View>
-)
-  
+  )
+
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#7E4BFF',
+    opacity: 0.7,
     alignItems: 'center',
     justifyContent: 'center',
   },

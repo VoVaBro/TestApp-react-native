@@ -12,7 +12,7 @@ const  PhotoStackNavigator = createStackNavigator({
         }
     }
 }, {
-    defaultNavigationOptions:{ headerStyle: {backgroundColor: '#F85DC6', opacity: 0.8}}
+    defaultNavigationOptions:{ headerStyle: {backgroundColor: '#2C1843', opacity: 0.8}}
 })
 
 

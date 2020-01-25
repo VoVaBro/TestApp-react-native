@@ -19,7 +19,7 @@ const HomeStackNavigator = createStackNavigator({
     }
 }, {
     defaultNavigationOptions: {
-        headerStyle: {backgroundColor: '#F85DC6', opacity: 0.8}
+        headerStyle: {backgroundColor: '#F85DC6', opacity: 0.9}
     }
 })
 
