@@ -10,11 +10,13 @@ const AppNavigator = createBottomTabNavigator({
     Photo: PhotoStackNavigator
 }, {
     tabBarOptions: {
+        labelStyle: {
+        fontSize: 15,
+        },
         activeTintColor: 'white',
-        inactiveTintColor: 'lightblue',
+        inactiveTintColor: '#F85DC6',
         style: {
             backgroundColor: '#2C1843',
-           
         }
     }
 })

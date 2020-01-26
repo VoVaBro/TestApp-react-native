@@ -1,23 +1,45 @@
 import React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity, Text, Dimensions } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Text, Dimensions, Button } from 'react-native';
+
+import { useSelector, useDispatch } from 'react-redux'
+import { closeModal, openModal } from '../actions/modal'
+
+
+import Modal from 'react-native-modal'
+
 
 const { height, width } = Dimensions.get('window')
 
-const PhotoList = ({ item, navigation }) => {
+const PhotoList = ({ item, navigation, showFullScreen }) => {
 
-
-const showFullScreen = () => {
-    navigation.navigate('Photo')
-}
-
+    const modalconfig = useSelector(state => state)
+    const dispatch = useDispatch()
 
     return (
         <View style={styles.list}>
+
+            <Modal
+                isVisible={modalconfig}
+                onBackdropPress={() => dispatch(closeModal())}
+
+            >
+                <View style={styles.modal}>
+
+                    <Text style={{ fontWeight: '500', fontSize: 20 }}>Athor: {item.user.name}</Text>
+                    <Text>
+                        <Text style={{ fontWeight: '400', fontSize: 16 }}>Description: {item.description}. </Text>
+                        <Text style={{ fontWeight: '400', fontSize: 16 }}> {item.alt_description} </Text>
+                    </Text>
+
+
+                </View>
+
+            </Modal>
             <TouchableOpacity style={styles.photo} onPress={showFullScreen}>
                 <Image style={{
                     width: 180,
                     height: 200,
-                    borderRadius: 3
+                    borderRadius: 5
                 }}
                     source={{ uri: item.urls.regular }} />
                 <TouchableOpacity style={{
@@ -29,8 +51,9 @@ const showFullScreen = () => {
                     backgroundColor: 'gray',
                     opacity: 0.7
                 }}
+                    onPress={() => dispatch(openModal())}
                 >
-                    <Text style={{fontWeight: '600', color: 'white' }}>Description</Text>
+                    <Text style={{ fontWeight: '600', color: 'white' }}>Description</Text>
                 </TouchableOpacity>
                 <View style={{ alignItems: 'flex-start', flexDirection: 'column' }}>
                     <Text style={{ fontSize: 14, fontWeight: '600', alignItems: 'center', marginTop: 5 }}>{item.user.name}</Text>
@@ -63,5 +86,15 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.51,
         shadowRadius: 13.16,
 
+    },
+    modal: {
+        width: 300,
+        height: 200,
+        backgroundColor: 'green',
+        borderRadius: 15,
+        alignItems: 'flex-start',
+        justifyContent: 'space-around',
+        padding: 10,
+        marginHorizontal: width / 11
     }
 })

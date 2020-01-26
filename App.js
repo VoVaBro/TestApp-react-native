@@ -1,9 +1,16 @@
 import React from 'react';
 
+import { Provider } from 'react-redux'
+import { store } from './redusers/store'
+
+
 import AppNavigator from './navigation/AppNavigator'
+
 
 export default function App() {
   return (
-      <AppNavigator/>
+    <Provider store={store}>
+      <AppNavigator />
+    </Provider>
   );
 }
