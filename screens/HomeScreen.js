@@ -1,38 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, FlatList, ActivityIndicator, Dimensions } from 'react-native';
-import axios from 'axios'
+import React, { useContext, useState, useEffect } from 'react';
+import { StyleSheet, View, FlatList, ActivityIndicator, Dimensions} from 'react-native';
+
 
 import PhotoList from '../components/PhotoList'
-
-
-
-const API_ID = 'ab3411e4ac868c2646c0ed488dfd919ef612b04c264f3374c97fff98ed253dc9'
+import {PhotoContext} from '../context/PhotoContext'
 
 const { width, height } = Dimensions.get('screen')
 
-
-
 export default function HomeScreen({ navigation }) {
 
+  const [photos, setPhotos] = useContext(PhotoContext)
   const [isLoading, setLoading] = useState(false)
-  const [photos, setPhotos] = useState([]);
-  const [count, setCount] = useState(30);
 
   useEffect(() => {
-    getPhotos()
-  }, [count])
+    if (photos) {
+      return setLoading(true)
+    }
+  }, [photos])
+  
 
-  const getPhotos = async () => {
-    const response = await axios.get(`https://api.unsplash.com/photos/random?count=${count}&client_id=${API_ID}`)
 
-    setPhotos(response.data)
-    setLoading(true)
-  }
-
-  const showFullScreen = () => {
-    navigation.navigate('Photo')
+  const showFullScreen = (photoId) => {
+   const element = photos.filter(i => i.id === photoId)
+    navigation.navigate('Photo', {
+      element: element
+    })
 }
-
 
   if (isLoading) {
     return (
@@ -40,16 +33,16 @@ export default function HomeScreen({ navigation }) {
           <FlatList
             numColumns={2}
             data={photos}
-            keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <View>
                 <PhotoList
                   navigation={navigation}
                   item={item}
                   showFullScreen={showFullScreen}
-                />
+              />
               </View>
             )}
+            keyExtractor={(item) => item.id.toString()}
           />
         </View>
     );

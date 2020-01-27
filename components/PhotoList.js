@@ -1,41 +1,34 @@
-import React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity, Text, Dimensions, Button } from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet, View, Image, TouchableOpacity, Text, Dimensions } from 'react-native';
 
-import { useSelector, useDispatch } from 'react-redux'
-import { closeModal, openModal } from '../actions/modal'
+import { useDispatch } from 'react-redux'
+import { openModal } from '../actions/modal'
 
+import ModalView from '../components/modalView'
+import { PhotoContext } from '../context/PhotoContext'
 
-import Modal from 'react-native-modal'
 
 
 const { height, width } = Dimensions.get('window')
 
 const PhotoList = ({ item, navigation, showFullScreen }) => {
 
-    const modalconfig = useSelector(state => state)
+    const [photos, setPhotos] = useContext(PhotoContext)
+    
+
     const dispatch = useDispatch()
+
+    const modalHandler = (itemId) => {
+        const photo = photos.filter(i => i.id === itemId)
+        dispatch(openModal())
+    }
 
     return (
         <View style={styles.list}>
-
-            <Modal
-                isVisible={modalconfig}
-                onBackdropPress={() => dispatch(closeModal())}
-
-            >
-                <View style={styles.modal}>
-
-                    <Text style={{ fontWeight: '500', fontSize: 20 }}>Athor: {item.user.name}</Text>
-                    <Text>
-                        <Text style={{ fontWeight: '400', fontSize: 16 }}>Description: {item.description}. </Text>
-                        <Text style={{ fontWeight: '400', fontSize: 16 }}> {item.alt_description} </Text>
-                    </Text>
-
-
-                </View>
-
-            </Modal>
-            <TouchableOpacity style={styles.photo} onPress={showFullScreen}>
+            <ModalView
+                modalHandler={modalHandler}
+            />
+            <TouchableOpacity style={styles.photo} onPress={() => showFullScreen(item.id)} >
                 <Image style={{
                     width: 180,
                     height: 200,
@@ -51,7 +44,7 @@ const PhotoList = ({ item, navigation, showFullScreen }) => {
                     backgroundColor: 'gray',
                     opacity: 0.7
                 }}
-                    onPress={() => dispatch(openModal())}
+                    onPress={() => modalHandler(item.id)}
                 >
                     <Text style={{ fontWeight: '600', color: 'white' }}>Description</Text>
                 </TouchableOpacity>
@@ -86,15 +79,5 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.51,
         shadowRadius: 13.16,
 
-    },
-    modal: {
-        width: 300,
-        height: 200,
-        backgroundColor: 'green',
-        borderRadius: 15,
-        alignItems: 'flex-start',
-        justifyContent: 'space-around',
-        padding: 10,
-        marginHorizontal: width / 11
     }
 })
