@@ -1,7 +1,7 @@
 import React, { useEffect, useState, createContext, useCallback } from 'react';
 import axios from 'axios'
 
-const API_ID = 'ab3411e4ac868c2646c0ed488dfd919ef612b04c264f3374c97fff98ed253dc9'
+const API_ID = 'cf49c08b444ff4cb9e4d126b7e9f7513ba1ee58de7906e4360afc1a33d1bf4c0'
 
 export const PhotoContext = createContext()
 
@@ -10,19 +10,22 @@ export const PhotoProvider = (props) => {
 
     const [photos, setPhotos] = useState([]);
     const [count, setCount] = useState(2);
+    const [isLoading, setLoading] = useState(false)
 
-   
 
-    const getPhotos =  async () => {
-        const response = await axios.get(`https://api.unsplash.com/photos/random?count=${count}&client_id=${API_ID}`)
-
-        setPhotos(response.data)
-        // setLoading(true)
-    }
-    
     useEffect(() => {
-        getPhotos()
+        axios.get(
+            `https://api.unsplash.com/photos/random?count=${count}&client_id=${API_ID}`
+        )
+        .then(response => response.data)
+        .then(photoItem =>  setPhotos(photoItem))
     }, [count])
+
+
+
+
+
+
 
     return (
         <PhotoContext.Provider value={[photos]}>

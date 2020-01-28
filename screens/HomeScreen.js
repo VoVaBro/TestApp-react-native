@@ -12,19 +12,18 @@ export default function HomeScreen({ navigation }) {
   const [photos, setPhotos] = useContext(PhotoContext)
   const [isLoading, setLoading] = useState(false)
 
-  useEffect(() => {
-    if (photos) {
-      return setLoading(true)
-    }
-  }, [photos])
+  // console.log(photos.length)
   
-
 
   const showFullScreen = (photoId) => {
    const element = photos.filter(i => i.id === photoId)
     navigation.navigate('Photo', {
       element: element
     })
+}
+
+if(photos.length > 1){
+  setLoading(true)
 }
 
   if (isLoading) {

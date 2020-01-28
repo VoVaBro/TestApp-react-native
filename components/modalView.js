@@ -1,31 +1,27 @@
 
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { closeModal } from '../actions/modal'
+import React, { useState, useEffect, useCallback } from 'react'
+
 import Modal from 'react-native-modal'
 import { StyleSheet, View, Text } from 'react-native';
 import { Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window')
 
-const ModalView = ({photoDesc}) => {
+const ModalView = ({ photoData, photoId, closeHandler, modalconfig }) => {
 
-    const modalconfig = useSelector(state => state)
-    const dispatch = useDispatch()
+    // console.log(11111, photoId)
 
-
+    
     return (
         <Modal
             isVisible={modalconfig}
-            onBackdropPress={() => dispatch(closeModal())}
+            onBackdropPress={closeHandler}
         >
             <View style={styles.modal}>
-                <Text style={{ fontWeight: '500', fontSize: 20 }}>Author: </Text>
-                <Text>
-                    <Text style={{ fontWeight: '400', fontSize: 16 }}>Description: {} </Text>
-                    <Text style={{ fontWeight: '400', fontSize: 16 }}> Alt_description: {}</Text>
-                </Text>
+                <Text style={{ fontWeight: '500', fontSize: 20 }}>Author: {} </Text>
+            
             </View>
+
         </Modal>
     )
 }

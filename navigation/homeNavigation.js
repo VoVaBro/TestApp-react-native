@@ -14,14 +14,23 @@ const HomeStackNavigator = createStackNavigator({
     Photo: {
         screen: PhotoScreen,
         navigationOptions: {
-            title: 'Full screen'
-        }
+            title: 'Full screen',
+        },
     }
 }, {
     defaultNavigationOptions: {
-        headerStyle: {backgroundColor: '#F85DC6', opacity: 0.9}
+        headerStyle: { backgroundColor: '#F85DC6', opacity: 0.9 }
     }
-})
+},
+    PhotoScreen.navigationOptions = {
+        headerShown: false
+    }
+)
+
+
+
+
+
 
 
 export default HomeStackNavigator;

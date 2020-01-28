@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 
 
-export default function PhotoScreen(props) {
+export default function FullScreen(props) {
 
 
   const item = props.navigation.getParam("element")
@@ -11,7 +11,7 @@ export default function PhotoScreen(props) {
  
   return (
     <View style={styles.container}>
-      <Text>PhotoScreen</Text>
+      <Text>FullScreen</Text>
     </View>
   );
 }

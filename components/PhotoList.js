@@ -1,8 +1,8 @@
-import React, { useContext, useState, useEffect, useCallback } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Text, Dimensions } from 'react-native';
 
-import { useDispatch } from 'react-redux'
-import { openModal } from '../actions/modal'
+import { useDispatch, useSelector } from 'react-redux'
+import { openModal, closeModal } from '../actions/modal'
 
 import ModalView from '../components/modalView'
 import { PhotoContext } from '../context/PhotoContext'
@@ -11,33 +11,49 @@ const { height, width } = Dimensions.get('window')
 
 const PhotoList = ({ item, navigation, showFullScreen }) => {
 
-    const [photos, setPhotos] = useContext(PhotoContext)
-    const [photoDesc, setPhotoDesc] = useState()
-
     const dispatch = useDispatch()
+    const modalconfig = useSelector(state => state)
+
+    const [photos, setPhotos] = useContext(PhotoContext)
+    const [photoData, setPhotoData] = useState()
+    const [photoId, setPhotoId] = useState()
 
 
+    // useEffect(() => {
+    //     setPhotoId('')
+    //     setPhotoData('')
+    // }, [modalconfig])
+
+    // // useEffect(() => {
+    // //     setPhotoId('')
+    // // }, [isClose])
 
 
-    useEffect(() => {
-        modalHandler(item.id)
-    }, [photos])
+    const openHandler = (itemId) => { 
+       
+        let data = photos.filter(i => i.id === itemId)
+        let id = data.map(i => i.id).toString()
 
-
-    const modalHandler = (itemId) => {
-
-        const data = photos.filter(i => i.id === itemId)
-        
-        setPhotoDesc(data)
+        setPhotoId(id)
+        setPhotoData(data)
 
         dispatch(openModal())
     }
+
+    const closeHandler = () => {
+        return dispatch(closeModal())
+    }
+
+
 
 
     return (
         <View style={styles.list}>
             <ModalView
-                photoDesc={photoDesc}
+                photoData={photoData}
+                photoId={photoId}
+                closeHandler={closeHandler}
+                modalconfig={modalconfig}
             />
             <TouchableOpacity style={styles.photo} onPress={() => showFullScreen(item.id)} >
                 <Image style={{
@@ -55,7 +71,7 @@ const PhotoList = ({ item, navigation, showFullScreen }) => {
                     backgroundColor: 'gray',
                     opacity: 0.7
                 }}
-                    onPress={() => modalHandler(item.id)}
+                    onPress={() => openHandler(item.id)}
                 >
                     <Text style={{ fontWeight: '600', color: 'white' }}>Description</Text>
                 </TouchableOpacity>
