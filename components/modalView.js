@@ -8,25 +8,22 @@ import { Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window')
 
-const ModalView = ({}) => {
+const ModalView = ({photoDesc}) => {
 
     const modalconfig = useSelector(state => state)
     const dispatch = useDispatch()
 
-   
 
-    console.log(12123123, )
     return (
         <Modal
             isVisible={modalconfig}
             onBackdropPress={() => dispatch(closeModal())}
         >
             <View style={styles.modal}>
-
-                <Text style={{ fontWeight: '500', fontSize: 20 }}>Athor: {}</Text>
+                <Text style={{ fontWeight: '500', fontSize: 20 }}>Author: </Text>
                 <Text>
-                    <Text style={{ fontWeight: '400', fontSize: 16 }}>Description: </Text>
-                    <Text style={{ fontWeight: '400', fontSize: 16 }}>  </Text>
+                    <Text style={{ fontWeight: '400', fontSize: 16 }}>Description: {} </Text>
+                    <Text style={{ fontWeight: '400', fontSize: 16 }}> Alt_description: {}</Text>
                 </Text>
             </View>
         </Modal>

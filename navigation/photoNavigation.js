@@ -1,18 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import {createStackNavigator} from 'react-navigation-stack'
+import { createStackNavigator } from 'react-navigation-stack'
 
 import PhotoScreen from '../screens/PhotoScreen'
 
-const  PhotoStackNavigator = createStackNavigator({
-    Photo: {
-        screen: PhotoScreen,
-        navigationOptions: {
-            title: 'Categorys'
-        }
+const PhotoStackNavigator = createStackNavigator({
+  Photo: {
+    screen: PhotoScreen,
+    navigationOptions: {
+      title: 'Categorys'
     }
+  }
 }, {
-    defaultNavigationOptions:{ headerStyle: {backgroundColor: '#F85DC6', opacity: 0.9}}
+  defaultNavigationOptions: {
+    headerStyle: {
+      backgroundColor: '#F85DC6', opacity: 0.9
+    }
+  }, mode: 'modal',
+  headerMode: 'node'
 })
 
 

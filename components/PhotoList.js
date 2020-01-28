@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Text, Dimensions } from 'react-native';
 
 import { useDispatch } from 'react-redux'
@@ -7,26 +7,37 @@ import { openModal } from '../actions/modal'
 import ModalView from '../components/modalView'
 import { PhotoContext } from '../context/PhotoContext'
 
-
-
 const { height, width } = Dimensions.get('window')
 
 const PhotoList = ({ item, navigation, showFullScreen }) => {
 
     const [photos, setPhotos] = useContext(PhotoContext)
-    
+    const [photoDesc, setPhotoDesc] = useState()
 
     const dispatch = useDispatch()
 
+
+
+
+    useEffect(() => {
+        modalHandler(item.id)
+    }, [photos])
+
+
     const modalHandler = (itemId) => {
-        const photo = photos.filter(i => i.id === itemId)
+
+        const data = photos.filter(i => i.id === itemId)
+        
+        setPhotoDesc(data)
+
         dispatch(openModal())
     }
+
 
     return (
         <View style={styles.list}>
             <ModalView
-                modalHandler={modalHandler}
+                photoDesc={photoDesc}
             />
             <TouchableOpacity style={styles.photo} onPress={() => showFullScreen(item.id)} >
                 <Image style={{

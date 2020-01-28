@@ -9,7 +9,7 @@ export const PhotoProvider = (props) => {
 
 
     const [photos, setPhotos] = useState([]);
-    const [count, setCount] = useState(3);
+    const [count, setCount] = useState(2);
 
    
 
