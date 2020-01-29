@@ -7,21 +7,20 @@ import { Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window')
 
-const ModalView = ({ photoData, photoId, closeHandler, modalconfig }) => {
+const ModalView = ({ data, modalDescId, closeHandler, modalconfig }) => {
 
-    // console.log(11111, photoId)
+   const description = data.filter(d => d.id == modalDescId )
 
-    
     return (
         <Modal
             isVisible={modalconfig}
             onBackdropPress={closeHandler}
         >
-            <View style={styles.modal}>
-                <Text style={{ fontWeight: '500', fontSize: 20 }}>Author: {} </Text>
-            
-            </View>
-
+            {description.map(i => (
+                <View key={i.id} style={styles.modal}>
+                    <Text style={{ fontWeight: '500', fontSize: 20 }}>Author: {i.user.name} </Text>
+                </View>
+            ))}
         </Modal>
     )
 }

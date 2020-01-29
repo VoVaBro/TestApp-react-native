@@ -8,7 +8,7 @@ export default function PhotoScreen(props) {
 
   const item = props.navigation.getParam("element")
 
- 
+ console.log(item)
   return (
     <View style={styles.container}>
       <Text>PhotoScreen</Text>

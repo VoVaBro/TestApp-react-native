@@ -1,60 +1,16 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Text, Dimensions } from 'react-native';
 
-import { useDispatch, useSelector } from 'react-redux'
-import { openModal, closeModal } from '../actions/modal'
-
-import ModalView from '../components/modalView'
-import { PhotoContext } from '../context/PhotoContext'
 
 const { height, width } = Dimensions.get('window')
 
-const PhotoList = ({ item, navigation, showFullScreen }) => {
-
-    const dispatch = useDispatch()
-    const modalconfig = useSelector(state => state)
-
-    const [photos, setPhotos] = useContext(PhotoContext)
-    const [photoData, setPhotoData] = useState()
-    const [photoId, setPhotoId] = useState()
-
-
-    // useEffect(() => {
-    //     setPhotoId('')
-    //     setPhotoData('')
-    // }, [modalconfig])
-
-    // // useEffect(() => {
-    // //     setPhotoId('')
-    // // }, [isClose])
-
-
-    const openHandler = (itemId) => { 
-       
-        let data = photos.filter(i => i.id === itemId)
-        let id = data.map(i => i.id).toString()
-
-        setPhotoId(id)
-        setPhotoData(data)
-
-        dispatch(openModal())
-    }
-
-    const closeHandler = () => {
-        return dispatch(closeModal())
-    }
 
 
 
+const PhotoList = ({openHandler, closeHandler, item, navigation, showFullScreen }) => {
 
     return (
         <View style={styles.list}>
-            <ModalView
-                photoData={photoData}
-                photoId={photoId}
-                closeHandler={closeHandler}
-                modalconfig={modalconfig}
-            />
             <TouchableOpacity style={styles.photo} onPress={() => showFullScreen(item.id)} >
                 <Image style={{
                     width: 180,
@@ -105,6 +61,5 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.51,
         shadowRadius: 13.16,
-
     }
 })
