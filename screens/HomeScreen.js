@@ -9,7 +9,7 @@ import useFetch from '../hooks/useFetch'
 
 const { width, height } = Dimensions.get('screen')
 
-const API_ID = '896d4f52c589547b2134bd75ed48742db637fa51810b49b607e37e46ab2c0043'
+const API_ID = 'ab3411e4ac868c2646c0ed488dfd919ef612b04c264f3374c97fff98ed253dc9'
 
 import Modal from '../components/modalView'
 
@@ -17,9 +17,9 @@ export default function HomeScreen({ navigation }) {
 
   const [count, setCount] = useState(3)
   const [modalDescId, setModalDescId] = useState()
+  const [refresh, setRefreshing] = useState(false)
 
-
-  const [data, loading] = useFetch(`https://api.unsplash.com/photos/random?count=${count}&client_id=${API_ID}`)
+  const [data, loading, fetchUrl] = useFetch(`https://api.unsplash.com/photos/random?count=${count}&client_id=${API_ID}`)
 
 
   const dispatch = useDispatch()
@@ -42,12 +42,19 @@ export default function HomeScreen({ navigation }) {
   }
 
 
+  const hendleRefresh = () => {
+    fetchUrl()
+    setRefreshing(loading)
+  }
+
   if (!loading) {
     return (
       <View style={styles.container}>
         <FlatList
           numColumns={2}
           data={data}
+          refreshing={refresh}
+          onRefresh={hendleRefresh}
           renderItem={({ item }) => (
             <View>
               <PhotoList

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 
 const useFetch = (url) => {
-    
+
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -17,10 +17,10 @@ const useFetch = (url) => {
 
     useEffect(() => {
         fetchUrl();
-
     }, [url]);
 
-    return [data, loading];
+    return [data, loading, fetchUrl]
+      
 }
 
 export default useFetch;

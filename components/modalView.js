@@ -1,8 +1,8 @@
 
-import React, { useState, useEffect, useCallback } from 'react'
+import React from 'react'
 
 import Modal from 'react-native-modal'
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, ScrollView, View, Text } from 'react-native';
 import { Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window')
@@ -18,7 +18,10 @@ const ModalView = ({ data, modalDescId, closeHandler, modalconfig }) => {
         >
             {description.map(i => (
                 <View key={i.id} style={styles.modal}>
+                    <ScrollView>
                     <Text style={{ fontWeight: '500', fontSize: 20 }}>Author: {i.user.name} </Text>
+                    <Text style={{ fontWeight: '500', fontSize: 20 }}>Description: {i.description} </Text>
+                    </ScrollView>
                 </View>
             ))}
         </Modal>
