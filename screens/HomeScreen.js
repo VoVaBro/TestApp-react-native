@@ -90,8 +90,8 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#7E4BFF',
-    opacity: 0.8,
+    backgroundColor: '#CA1F3D',
+    opacity: 0.9,
     alignItems: 'center',
     justifyContent: 'center',
   }

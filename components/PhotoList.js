@@ -32,7 +32,7 @@ const PhotoList = ({openHandler, closeHandler, item, navigation, showFullScreen 
                     <Text style={{ fontWeight: '600', color: 'white' }}>Description</Text>
                 </TouchableOpacity>
                 <View style={{ alignItems: 'flex-start', flexDirection: 'column' }}>
-                    <Text style={{ fontSize: 14, fontWeight: '600', alignItems: 'center', marginTop: 5 }}>{item.user.name}</Text>
+                    <Text style={{ fontSize: 14, fontWeight: '600', alignItems: 'center', marginTop: 5, color: '#FFBA00' }}>{item.user.name}</Text>
                 </View>
             </TouchableOpacity>
         </View>

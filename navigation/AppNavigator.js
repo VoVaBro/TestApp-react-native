@@ -10,7 +10,11 @@ const AppNavigator = createStackNavigator({
     Home: {
         screen: HomeScreen,
         navigationOptions: {
-            title: 'PHOTO GALARY',
+            headerTitle: 'PHOTO GALARY',
+            headerTitleStyle: {
+                color: '#FFBA00',
+                opacity: 0.9
+              }
         }
     },
     Photo: {
@@ -21,7 +25,7 @@ const AppNavigator = createStackNavigator({
     }
 }, {
     defaultNavigationOptions: {
-        headerStyle: { backgroundColor: '#F85DC6', opacity: 0.9 }
+        headerStyle: {  backgroundColor: '#2E0E12', opacity: 1 }
     }
 })
 
