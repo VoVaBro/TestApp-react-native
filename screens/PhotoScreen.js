@@ -1,21 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, Image, Dimensions } from 'react-native';
+
+const {height, width} = Dimensions.get('window')
 
 
 
 export default function PhotoScreen(props) {
 
-
   const item = props.navigation.getParam("element")
 
- console.log(item)
   return (
     <View style={styles.container}>
-      <Text>PhotoScreen</Text>
+      {item.map( i =>
+       <Image key={i.id} style={{width: width, height: height}} source={{uri: i.urls.regular}}/>
+      )}
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -24,3 +25,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+

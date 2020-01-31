@@ -1,23 +1,27 @@
 import React from 'react';
-import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createAppContainer } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+import HomeScreen from '../screens/HomeScreen'
+import PhotoScreen from '../screens/PhotoScreen'
 
-import HomeStackNavigator from './homeNavigation'
-import PhotoStackNavigator from './photoNavigation'
 
-const AppNavigator = createBottomTabNavigator({
-    Home: HomeStackNavigator,
-    Photo: PhotoStackNavigator
-}, {
-    tabBarOptions: {
-        labelStyle: {
-        fontSize: 15,
-        },
-        activeTintColor: 'white',
-        inactiveTintColor: '#F85DC6',
-        style: {
-            backgroundColor: '#2C1843',
+
+const AppNavigator = createStackNavigator({
+    Home: {
+        screen: HomeScreen,
+        navigationOptions: {
+            title: 'PHOTO GALARY',
         }
+    },
+    Photo: {
+        screen: PhotoScreen,
+        navigationOptions: {
+            headerShown: false,
+        }
+    }
+}, {
+    defaultNavigationOptions: {
+        headerStyle: { backgroundColor: '#F85DC6', opacity: 0.9 }
     }
 })
 

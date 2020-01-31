@@ -1,21 +1,22 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, View, FlatList, ActivityIndicator, Dimensions } from 'react-native';
-
+import { StyleSheet, View, FlatList, ActivityIndicator, Dimensions, SafeAreaView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux'
 import { openModal, closeModal } from '../actions/modal'
 
 import PhotoList from '../components/PhotoList'
+import Modal from '../components/modalView'
+
+
 import useFetch from '../hooks/useFetch'
 
 const { width, height } = Dimensions.get('screen')
 
 const API_ID = 'ab3411e4ac868c2646c0ed488dfd919ef612b04c264f3374c97fff98ed253dc9'
 
-import Modal from '../components/modalView'
 
 export default function HomeScreen({ navigation }) {
 
-  const [count, setCount] = useState(3)
+  const [count, setCount] = useState(20)
   const [modalDescId, setModalDescId] = useState()
   const [refresh, setRefreshing] = useState(false)
 
@@ -24,6 +25,7 @@ export default function HomeScreen({ navigation }) {
 
   const dispatch = useDispatch()
   const modalconfig = useSelector(state => state)
+
 
   const openHandler = (itemId) => {
     setModalDescId(itemId)
@@ -49,7 +51,7 @@ export default function HomeScreen({ navigation }) {
 
   if (!loading) {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <FlatList
           numColumns={2}
           data={data}
@@ -74,7 +76,7 @@ export default function HomeScreen({ navigation }) {
           closeHandler={closeHandler}
           modalDescId={modalDescId}
         />
-      </View>
+      </SafeAreaView>
     );
   }
   return (

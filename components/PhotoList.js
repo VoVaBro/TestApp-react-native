@@ -45,6 +45,7 @@ export default PhotoList;
 const styles = StyleSheet.create({
     list: {
         flex: 1,
+        marginTop: 10,
         width: width / 2,
         height: height * 0.3,
         alignItems: 'center',
